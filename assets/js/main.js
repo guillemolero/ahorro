@@ -2,27 +2,26 @@
  * Created by Portatil on 30/06/2017.
  */
 
-$(document).ready(
+$(document).ready(function()
+{
+    $('#form-Crear').submit(function()
+        {
+            var url = "functions/create.php";
 
+            $.ajax(
+                {
+                    type:"POST",
+                    async: true,
+                    url: url,
+                    data: $('#form-Crear').serialize(),
+                    success: function(data)
+                    {
+                        $("#resultado").html(data);
+                    }
+                }
+            );
+            return false;
+        }
+    )
 
-    $("#crearCuenta").click(function(){
-
-        ingresosFijos = $("#ingresosFijos").val();
-        gastosFijos = $("#gastosFijos").val();
-        ahorro = $("#ahorro").val();
-        vivir = $("#vivir").val();
-        ocio = $("#ocio").val();
-
-        var datos = [ingresosFijos, gastosFijos, ahorro, vivir, ocio];
-
-       $.ajax({
-           url: "functions/create.php",
-           type: "post",
-           data: datos,
-           success: function() {
-               $("#resultado").html('Cuenta creada correctamente.');
-           }
-       });
-    });
-
-);
+});
